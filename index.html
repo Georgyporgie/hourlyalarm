@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hourly Sound Notification</title>
+</head>
+<body>
+    <script>
+        // Function to play a sound
+        function playSound() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(440, audioContext.currentTime); // A4 note
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime); // Volume
+
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 1); // Play sound for 1 second
+        }
+
+        // Function to check the time and play sound at the start of each hour
+        function checkTime() {
+            const now = new Date();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            if (minutes === 0 && seconds === 0) {
+                playSound();
+            }
+        }
+
+        // Set an interval to check the time every second
+        setInterval(checkTime, 1000);
+    </script>
+</body>
+</html>
