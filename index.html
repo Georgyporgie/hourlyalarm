@@ -18,7 +18,7 @@
 
             oscillator.type = 'sine';
             oscillator.frequency.setValueAtTime(440, audioContext.currentTime); // A4 note
-            gainNode.gain.setValueAtTime(1.5, audioContext.currentTime); // Volume
+            gainNode.gain.setValueAtTime(0.5, audioContext.currentTime); // Volume
 
             oscillator.start();
             oscillator.stop(audioContext.currentTime + 4); // Play sound for 1 second
